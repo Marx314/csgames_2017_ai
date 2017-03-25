@@ -235,6 +235,7 @@ You can see the replay of your games in the folder <i>test/output/</i>.
 - Please make sure your code work on ubuntu 16.04 with official packages
 - 10% of the score is given if you provide a bash script "run.sh" that start your AI.
 - 90% of the score is given by your ranking of the round robin.
+- This part of AI worth 4% of the global score
 
 ---
 
@@ -252,3 +253,4 @@ Example if there are 30 teams
 - 5 == 78%
 - 6 == 74%
 - 7 == 71%
+  

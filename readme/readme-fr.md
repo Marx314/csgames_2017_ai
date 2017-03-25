@@ -234,7 +234,7 @@ Vous pouvez consultez le replay de la partie dans le répertoire <i>test/output/
 - Votre AI n'aura pas accès à internet - désolé DeepMind.
 - 10% du pointage est donnée si vous avez un script bash "run.sh" qui démarre votre AI.
 - 90% du pointage est donnée en fonction de vos points dans le round robin.
- 
+- Cette partie de la compétition 4% du pointage global 
 ---
 
 ### Pointage détaillé
