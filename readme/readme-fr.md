@@ -95,7 +95,7 @@ Ceci est un autre exemple d'échec et mat où le joueur 1 perd.
 
 ### Installation
 ```bash
-tox -e py27
+tox -e py3
 source .tox/py3/bin/activate
 ```
 ou
