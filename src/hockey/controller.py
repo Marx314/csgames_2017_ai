@@ -142,7 +142,6 @@ class Controller(object):
                 action_result.winner = self.players[1]
             elif len(self.get_possible_actions(self.ball[0], self.ball[1])) == 0:
                 action_result.winner = self.players[id]
-        self.printer.print_game(self)
         return action_result
 
     def _switch_player(self):

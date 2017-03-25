@@ -1,18 +1,18 @@
 from twisted.internet import reactor
 from twisted.internet.protocol import Factory
 
-from network.communication import Communication
-from network.online_gateway import OnlineGateway
-from hockey.controller import ControllerGentle
+from hockey2.controller_polarity import ControllerPolarity
+from network2.online_gateway_polarity import OnlineGatewayPolarity
+from network2.communication import CommunicationP2
 
 
 class ChatFactory(Factory):
     def __init__(self):
         self.users = {}
-        self.online_gateway = OnlineGateway(lambda: ControllerGentle(11, 11), timeout=600, debug=True)
+        self.online_gateway = OnlineGatewayPolarity(lambda: ControllerPolarity(15, 15), timeout=600, debug=True)
 
     def buildProtocol(self, addr):
-        return Communication(self.users, self.online_gateway)
+        return CommunicationP2(self.users, self.online_gateway)
 
 
 cf = ChatFactory()
