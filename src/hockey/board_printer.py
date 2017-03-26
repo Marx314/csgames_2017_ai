@@ -117,5 +117,5 @@ class BoardPrinterCurrent(BoardPrinter):
 
     def _get_filename_gif(self, players):
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        filename = "{}/../../test/output/test-{}-{}VS{}.gif".format(dir_path, 'current', players[0], players[1])
+        filename = "{}/../../test/output/test-{}-{}VS{}-{}.gif".format(dir_path, 'current', players[0], players[1], uuid.uuid4())
         return filename

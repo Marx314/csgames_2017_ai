@@ -1,6 +1,7 @@
 import time
 
 from twisted.internet import task
+import json
 
 MESSAGES = {
     'who': "What's your name?",
@@ -11,8 +12,8 @@ MESSAGES = {
     'goal_north': "your goal is north",
     'goal_south': "your goal is south",
     'active_player': '{} is active player',
-    'timeout': '{} won : timeout',
-    'won': '{} won {}',
+    'timeout': '{} won : timeout |||{}',
+    'won': '{} won {} |||{}',
     'invalid': 'invalid move',
     'ignoring_inactive': 'ignoring action {}',
     'action': "{} did go {}",
@@ -49,7 +50,7 @@ class OnlineGateway(object):
             action_result = self.controller.move(action)
             if action_result.valid:
                 if action_result.terminated:
-                    reason = MESSAGES['won'].format(action_result.winner, action_result.reason)
+                    reason = MESSAGES['won'].format(action_result.winner, action_result.reason, json.dumps(self.controller.players))
                     self._game_id_ended(reason)
                 else:
                     self.last_time_played[self.controller.active_player] = time.time()
@@ -73,8 +74,9 @@ class OnlineGateway(object):
 
     def _ship_it(self, player_id, message):
         self.msgid += 1
-        if self.debug:
-            print(self.msgid, message)
+        if 'invalid' not in message and player_id!=0:
+            if self.debug:
+                print(self.msgid)
         self.handlers[player_id].send_message('{} - {}'.format(message, self.msgid))
 
     def is_active_player_timeout(self):
@@ -86,7 +88,7 @@ class OnlineGateway(object):
             now = time.time()
             delta = now - start_time
             if delta > self.timeout:
-                reason = MESSAGES['timeout'].format(self.controller.in_active_player_name())
+                reason = MESSAGES['timeout'].format(self.controller.in_active_player_name(), json.dumps(self.controller.players))
                 self._game_id_ended(reason)
                 self.looping_call.stop()
                 self._initialize_controller()
