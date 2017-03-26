@@ -1,6 +1,7 @@
 import time
 
 from network.online_gateway import OnlineGateway
+import json
 
 MESSAGES = {
     'power_up': 'power up is at {}',
@@ -12,8 +13,8 @@ MESSAGES = {
     'goal_north': "your goal is north",
     'goal_south': "your goal is south",
     'active_player': '{} is active player',
-    'timeout': '{} won : timeout',
-    'won': '{} won {}',
+    'timeout': '{} won : timeout |||{}',
+    'won': '{} won {} |||{}',
     'invalid': 'invalid move',
     'ignoring_inactive': 'ignoring action {}',
     'action': '{} did go {}',
@@ -30,7 +31,7 @@ class OnlineGatewayPolarity(OnlineGateway):
             action_result, inverted = self.controller.move(action)
             if action_result.valid:
                 if action_result.terminated:
-                    reason = MESSAGES['won'].format(action_result.winner, action_result.reason)
+                    reason = MESSAGES['won'].format(action_result.winner, action_result.reason, json.dumps(self.controller.players))
                     self._game_id_ended(reason)
                 else:
                     self.last_time_played[self.controller.active_player] = time.time()
